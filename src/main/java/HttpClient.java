@@ -65,7 +65,6 @@ public class HttpClient {
     }
 
     public String getHeader(String fieldName) {
-
-        return null;
+        return headerMap.get(fieldName);
     }
 }
