@@ -7,11 +7,20 @@ import java.util.TreeMap;
 
 public class HttpClient {
 
-    private final int statusCode;
-    private final HttpMessage response;
+    private int statusCode;
+    private HttpMessage response;
+    private String host;
+    private int port;
+    private String target;
 
 
-    public HttpClient(String host, int port, String target) throws IOException {
+    public HttpClient(String host, int port, String target) {
+        this.host = host;
+        this.port = port;
+        this.target = target;
+    }
+
+    public void executeRequest() throws IOException {
         Socket socket = new Socket(host, port);
         String request = "GET " + target + " HTTP/1.1\r\n" +
                 "Connection: close\r\n" +
@@ -36,7 +45,7 @@ public class HttpClient {
     public int getContentLength() {
         return response.contentLength;
     }
-    
+
     public String getBody(){
         return response.body;
     }

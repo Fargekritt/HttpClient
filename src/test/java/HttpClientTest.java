@@ -10,18 +10,21 @@ class HttpClientTest {
     @Test
     void shouldReadStatusCode() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/html");
+        client.executeRequest();
         assertEquals(200, client.getStatusCode());
     }
 
     @Test
     void shouldReadNotFoundStatusCode() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/bullshit");
+        client.executeRequest();
         assertEquals(404, client.getStatusCode());
     }
 
     @Test
     void shouldReadHttpResponseHeader() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/html");
+        client.executeRequest();
         assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
         assertEquals("text/html; charset=utf-8", client.getHeader("CONTENT-TYPE"));
         assertEquals("close", client.getHeader("Connection"));
@@ -30,6 +33,7 @@ class HttpClientTest {
     @Test
     void shouldReadContentLength() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/html");
+        client.executeRequest();
         assertEquals("3741", client.getHeader("Content-length"));
         assertEquals(3741, client.getContentLength());
     }
@@ -37,6 +41,7 @@ class HttpClientTest {
     @Test
     void shouldReadResponseBody() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/html");
+        client.executeRequest();
         String body = client.getBody();
         assertTrue(body.startsWith("<!DOCTYPE html>"));
         assertTrue(body.endsWith("</body>\n</html>"));
